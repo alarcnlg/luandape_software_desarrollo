@@ -4,7 +4,7 @@
 *	SGH-ElEmperador
 *   LUANDAPE Software
 * 	Nombre del archivo: DB-SGH-ElEmperador.db
-*	Versión: 20181001	
+*	Versión: 20181002	
 */
 
 /*
@@ -13,7 +13,7 @@
 */
 DROP TABLE IF EXISTS tipo_habitacion;
 CREATE TABLE tipo_habitacion(
-	ID INT PRIMARY KEY AUTOINCREMENT, --ID Unico
+	ID INTEGER PRIMARY KEY AUTOINCREMENT, --ID Unico
 	TIPO TEXT, --Tipo de habitación S=Simple, D=Doble, U=Suite
 	PRECIO REAL, --Precio de renta
 	NUMPERSONAS TEXT --Numero de personas que caben en la habitación MINNUM-MAXNUM
@@ -25,9 +25,9 @@ CREATE TABLE tipo_habitacion(
 */
 DROP TABLE IF EXISTS habitaciones;
 CREATE TABLE habitaciones(
-	ID INT PRIMARY KEY AUTOINCREMENT, --ID Unico
-	NUMERO INT, --Número de habitación
-	IDTIPO INT, --Categoría de la habitación
+	ID INTEGER PRIMARY KEY AUTOINCREMENT, --ID Unico
+	NUMERO INTEGER, --Número de habitación
+	IDTIPO INTEGER, --Categoría de la habitación
 	ESTADO TEXT, --Estado actual L=Libre, O=Ocupado, R=Reservada
 	FOREIGN KEY(IDTIPO) REFERENCES tipo_habitacion(ID)
 );
@@ -38,11 +38,11 @@ CREATE TABLE habitaciones(
 */
 DROP TABLE IF EXISTS usuarios;
 CREATE TABLE usuarios(
-	ID INT PRIMARY KEY AUTOINCREMENT, --ID Unico
+	ID INTEGER PRIMARY KEY AUTOINCREMENT, --ID Unico
 	NOMBRE TEXT, --Nombre
 	APELLIDOS TEXT, --Apellidos
 	TIPO TEXT, --Tipo de usuario O=Operador, A=Administrador
-	USUARIO REAL, --Nombre de usuario de acceso
+	USUARIO TEXT, --Nombre de usuario de acceso
 	PASSWORD TEXT --Contraseña de acceso
 );
 
@@ -52,19 +52,19 @@ CREATE TABLE usuarios(
 */
 DROP TABLE IF EXISTS hospedajes;
 CREATE TABLE hospedajes(
-	ID INT PRIMARY KEY AUTOINCREMENT, --ID Unico
-	IDHABITACION INT, --ID De habitación a ocupar
-	DIAS INT, --Dias de instancia
+	ID INTEGER PRIMARY KEY AUTOINCREMENT, --ID Unico
+	IDHABITACION INTEGER, --ID De habitación a ocupar
+	DIAS INTEGER, --Dias de instancia
 	FECHAENTRADA TEXT, --Fecha de entrada
 	ESTADO TEXT, --Estado, A=Activo, C=Concluido, X=Cancelado
 	SUBTOTAL REAL, --Total sin IVA
 	TOTAL REAL, --Total
 	FECHASALIDA TEXT, --Fecha de salida
-	IDOPERADORENTRADA INT, --ID del usuario que dio entrada
-	IDOPERADORSALIDA INT, --ID del usuario que dio salida
+	IDOPERADORENTRADA INTEGER, --ID del usuario que dio entrada
+	IDOPERADORSALIDA INTEGER, --ID del usuario que dio salida
 	FOREIGN KEY(IDHABITACION) REFERENCES habitaciones(ID),
 	FOREIGN KEY(IDOPERADORENTRADA) REFERENCES usuarios(ID),
-	FOREIGN KEY(IDOPERADORSALIDA) REFERENCES usuarios(ID),
+	FOREIGN KEY(IDOPERADORSALIDA) REFERENCES usuarios(ID)
 );
 
 /*
@@ -73,13 +73,13 @@ CREATE TABLE hospedajes(
 */
 DROP TABLE IF EXISTS huespedes;
 CREATE TABLE huespedes(
-	ID INT PRIMARY KEY AUTOINCREMENT, --ID Unico
-	IDHOSPEDAJE INT, --Hospedaje del huesped
+	ID INTEGER PRIMARY KEY AUTOINCREMENT, --ID Unico
+	IDHOSPEDAJE INTEGER, --Hospedaje del huesped
 	NOMBRE TEXT, --Nombre
-	APELLIDOS TEXT --Apellidos
-	DOCIDENTIDAD TEXT --Documento de identificación
-	FECHANACIMIENTO TEXT --Fecha de nacimiento
-	FOREIGN KEY IDHOSPEDAJE REFERENCES hospedajes(ID)
+	APELLIDOS TEXT, --Apellidos
+	DOCIDENTIDAD TEXT, --Documento de identificación
+	FECHANACIMIENTO TEXT, --Fecha de nacimiento
+	FOREIGN KEY (IDHOSPEDAJE) REFERENCES hospedajes(ID)
 );
 
 /*
@@ -88,8 +88,8 @@ CREATE TABLE huespedes(
 */
 DROP TABLE IF EXISTS facturas;
 CREATE TABLE facturas(
-	ID INT PRIMARY KEY AUTOINCREMENT, --ID Unico
-	NOFACTURA INT AUTOINCREMENT, --Número de factura
-	IDHOSPEDAJE INT, --Hospedaje base de la factura
-	FOREIGN KEY IDHOSPEDAJE REFERENCES hospedajes(ID)
+	ID INTEGER PRIMARY KEY AUTOINCREMENT, --ID Unico
+	NOFACTURA INTEGER, --Número de factura
+	IDHOSPEDAJE INTEGER, --Hospedaje base de la factura
+	FOREIGN KEY (IDHOSPEDAJE) REFERENCES hospedajes(ID)
 );

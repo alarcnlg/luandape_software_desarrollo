@@ -13,6 +13,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -78,16 +78,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseDeDatos\Core\BaseTabla.cs" />
+    <Compile Include="BaseDeDatos\Core\ConexionBD.cs" />
+    <Compile Include="BaseDeDatos\HospedajesTB.cs" />
+    <Compile Include="BaseDeDatos\UsuariosTB.cs" />
     <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmMDI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMDI.Designer.cs">
+      <DependentUpon>FrmMDI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModuloGeneral.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ventanas\FrmRegistroHospedaje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventanas\FrmRegistroHospedaje.Designer.cs">
+      <DependentUpon>FrmRegistroHospedaje.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMDI.resx">
+      <DependentUpon>FrmMDI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -98,8 +118,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Ventanas\FrmRegistroHospedaje.resx">
+      <DependentUpon>FrmRegistroHospedaje.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="General\Data\DB-SGH-ElEmperador.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -118,10 +141,7 @@
   <ItemGroup>
     <Content Include="General\BaseDeDatos.sql" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BaseDeDatos\Core\" />
-    <Folder Include="Ventanas\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
