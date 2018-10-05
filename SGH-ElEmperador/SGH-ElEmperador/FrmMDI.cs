@@ -56,5 +56,13 @@ namespace SGH_ElEmperador
             frm.Dock = DockStyle.Fill;
             frm.Show();
         }
+
+        private void BtnSalidaHospedaje_Click(object sender, EventArgs e)
+        {
+            FrmPruebas frm = new FrmPruebas();
+            frm.MdiParent = this;
+            frm.Dock = DockStyle.Fill;
+            frm.Show();
+        }
     }
 }

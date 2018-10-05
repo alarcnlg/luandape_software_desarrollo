@@ -19,16 +19,29 @@ namespace SGH_ElEmperador.BaseDeDatos
 
         }
 
-        bool RegistrarEntrada(int id, string numeroHabitacion, int dias, DateTime fechaEntrada, float subTotal, float total, int idOperador) {
-            return true;
+        public bool RegistrarEntrada(ref int id, string numeroHabitacion, int dias, DateTime fechaEntrada, float subTotal, float total, int idOperador) {
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("IDOPERADORSALIDA", "" + idOperador);
+            return EjecucionExitosa;
         }
 
-        bool RegtistrarSalida(int id, DateTime fechaSalida, int idOperador) {
-            return true;
+        public bool RegtistrarSalida(int id, DateTime fechaSalida, int idOperador) {
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("FECHASALIDA", "'20180901'");
+            parametros.Add("IDOPERADORSALIDA", "" + idOperador);
+            Guardar(ref id, parametros);
+            return EjecucionExitosa;
         }
 
-        Dictionary<string, object> ConsultaHospedaje(string numero) {
-            return null;
+        public Dictionary<string, object> ConsultaHospedaje(int numero) {
+            return ConsultarDictionary("hospedajes a",
+                                       "a.ID, b.NUMERO, a.FECHASALIDA, a.DIAS, a.TOTAL",
+                                       "b.NUMERO=" + numero,
+                                       "INNER JOIN habitaciones b ON a.IDHABITACION = b.ID", 
+                                       "",
+                                       "", 
+                                       null);
+
         }
     }
 }

@@ -40,8 +40,8 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
         * Permite ejecutar una consulta y guardar el resultado en el DataTable que retorna.
         * Si no se usa un campo, se debe dejar vacio.
         */
-        public DataTable ConsultarDT(string nombreTabla, string campos, string criterio, string join, string ordenado, string group, Dictionary<string, object> parametros) {
-            DataTable dt = null;
+        protected DataTable ConsultarDT(string nombreTabla, string campos, string criterio, string join, string ordenado, string group, Dictionary<string, object> parametros) {
+            DataTable dt = new DataTable();
             EjecucionExitosa = false;
             Error = "";
             try
@@ -53,14 +53,17 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
                 cmdString += " FROM " + (nombreTabla.Length > 0 ? nombreTabla : NombreTabla);
                 cmdString += join;
                 cmdString += (criterio.Length > 0 ? " WHERE " + criterio : "");
-                cmdString += (group.Length > 0 ? " GROUB BY " + group : "");
+                cmdString += (group.Length > 0 ? " GROUP BY " + group : "");
                 cmdString += (ordenado.Length > 0 ? " ORDER BY " + ordenado : "");
 
-                foreach (var key in parametros.Keys)
+                if (parametros != null)
                 {
-                    cmd.Parameters.AddWithValue(key, parametros[key]);
+                    foreach (var key in parametros.Keys)
+                    {
+                        cmd.Parameters.AddWithValue(key, parametros[key]);
+                    }
                 }
- 
+
                 cmd.CommandText = cmdString;
                 if (!ConexionBD.Instancia.EjecutarComandoConsultaDT(cmd,dt))
                 {
@@ -85,7 +88,7 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
         * Permite ejecutar una consulta y guardar el resultado en un DataReader que retorna.
         * Si no se usa un campo, se debe dejar vacio.
         */
-        public void ConsultarDR(string nombreTabla, string campos, string criterio, string join, string ordenado, string group, Dictionary<string, object> parametros)
+        protected void ConsultarDR(string nombreTabla, string campos, string criterio, string join, string ordenado, string group, Dictionary<string, object> parametros)
         {
             EjecucionExitosa = false;
             Error = "";
@@ -101,11 +104,13 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
                 cmdString += (group.Length > 0 ? " GROUB BY " + group : "");
                 cmdString += (ordenado.Length > 0 ? " ORDER BY " + ordenado : "");
 
-                foreach (var key in parametros.Keys)
+                if (parametros != null)
                 {
-                    cmd.Parameters.AddWithValue(key, parametros[key]);
+                    foreach (var key in parametros.Keys)
+                    {
+                        cmd.Parameters.AddWithValue(key, parametros[key]);
+                    }
                 }
-
                 cmd.CommandText = cmdString;
                 if (!ConexionBD.Instancia.EjecutarComandoConsultaDR(cmd, ref DataReader))
                 {
@@ -128,7 +133,7 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
         * Permite ejecutar una consulta y guardar el resultado en un dictionary que retorna.
         * Si no se usa un campo, se debe dejar vacio.
         */
-        public Dictionary<string, object> ConsultarDictionary(string nombreTabla, string campos, string criterio, string join, string ordenado, string group, Dictionary<string, object> parametros)
+        protected Dictionary<string, object> ConsultarDictionary(string nombreTabla, string campos, string criterio, string join, string ordenado, string group, Dictionary<string, object> parametros)
         {
             EjecucionExitosa = false;
             Error = "";
@@ -140,14 +145,17 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
 
                 cmdString = "SELECT " + (campos.Length > 0 ? campos : "*");
                 cmdString += " FROM " + (nombreTabla.Length > 0 ? nombreTabla : NombreTabla);
-                cmdString += join;
+                cmdString += " " + join;
                 cmdString += (criterio.Length > 0 ? " WHERE " + criterio : "");
                 cmdString += (group.Length > 0 ? " GROUB BY " + group : "");
                 cmdString += (ordenado.Length > 0 ? " ORDER BY " + ordenado : "");
 
-                foreach (var key in parametros.Keys)
+                if (parametros != null)
                 {
-                    cmd.Parameters.AddWithValue(key, parametros[key]);
+                    foreach (var key in parametros.Keys)
+                    {
+                        cmd.Parameters.AddWithValue(key, parametros[key]);
+                    }
                 }
 
                 cmd.CommandText = cmdString;
@@ -189,9 +197,10 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
         * Dictionary<string, object> parametros: Valores que se van a insertan
         * Inserta o actualiza dependiendo del Id
         */
-        public void Guardar(ref int id, Dictionary<string, object> parametros) {
+        protected void Guardar(ref int id, Dictionary<string, object> parametros) {
+            if (parametros == null) return;
 
-            if (id > 0)
+            if (id == 0)
             {
                 Insertar(ref id, parametros);
             }
@@ -208,7 +217,7 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
         * Dictionary<string, object> parametros: Valores que se van a insertan
         * Inserta un nuevo registro
         */
-        public void Insertar(ref int id, Dictionary<string, object> parametros)
+        protected void Insertar(ref int id, Dictionary<string, object> parametros)
         {
             EjecucionExitosa = false;
             Error = "";
@@ -231,8 +240,7 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
                 cmdString += ") VALUES(";
                 foreach (var key in parametros.Keys)
                 {
-                    cmdString += (mostrarComa ? "," : "") + "?" + key;
-                    cmd.Parameters.AddWithValue("?" + key, parametros[key]);
+                    cmdString += (mostrarComa ? "," : "") + key + " = " + parametros[key].ToString();
                     mostrarComa = true;
                 }
                 cmdString += ")";
@@ -255,7 +263,7 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
         * Dictionary<string, object> parametros: Valores que se van a insertan
         * Actualiza un registro existente
         */
-        public void Actualizar(ref int id, Dictionary<string, object> parametros)
+        protected void Actualizar(ref int id, Dictionary<string, object> parametros)
         {
             EjecucionExitosa = false;
             Error = "";
@@ -270,8 +278,7 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
                 cmdString = "UPDATE " + NombreTabla + " SET ";
                 foreach (string key in parametros.Keys)
                 {
-                    cmdString += (mostrarComa ? "," : "") + key + " = ?" + key;
-                    cmd.Parameters.AddWithValue("?" + key, parametros[key]);
+                    cmdString += (mostrarComa ? ", " : "") + key + " = " + parametros[key].ToString();
                     mostrarComa = true;
                 }
                 cmdString += " WHERE ID=" + id;
@@ -295,7 +302,7 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
         * Dictionary<string, object> parametros: Valores que se van a insertan
         * Elimina un registro
         */
-        public void Eliminar(ref int id)
+        protected void Eliminar(ref int id)
         {
             EjecucionExitosa = false;
             Error = "";

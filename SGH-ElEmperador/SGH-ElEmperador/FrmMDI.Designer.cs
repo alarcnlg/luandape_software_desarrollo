@@ -86,6 +86,7 @@
             this.BtnSalidaHospedaje.TabIndex = 3;
             this.BtnSalidaHospedaje.Text = "Registrar Salida";
             this.BtnSalidaHospedaje.UseVisualStyleBackColor = true;
+            this.BtnSalidaHospedaje.Click += new System.EventHandler(this.BtnSalidaHospedaje_Click);
             // 
             // BtnRegistroHospedaje
             // 

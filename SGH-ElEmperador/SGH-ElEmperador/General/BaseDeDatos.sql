@@ -4,20 +4,8 @@
 *	SGH-ElEmperador
 *   LUANDAPE Software
 * 	Nombre del archivo: DB-SGH-ElEmperador.db
-*	Versión: 20181002	
+*	Versión: 20181003	
 */
-
-/*
-	tipo_habitacion
-	Guarda la información referente a las categorías de habitacion existentes
-*/
-DROP TABLE IF EXISTS tipo_habitacion;
-CREATE TABLE tipo_habitacion(
-	ID INTEGER PRIMARY KEY AUTOINCREMENT, --ID Unico
-	TIPO TEXT, --Tipo de habitación S=Simple, D=Doble, U=Suite
-	PRECIO REAL, --Precio de renta
-	NUMPERSONAS TEXT --Numero de personas que caben en la habitación MINNUM-MAXNUM
-);
 
 /*
 	habitaciones
@@ -27,9 +15,8 @@ DROP TABLE IF EXISTS habitaciones;
 CREATE TABLE habitaciones(
 	ID INTEGER PRIMARY KEY AUTOINCREMENT, --ID Unico
 	NUMERO INTEGER, --Número de habitación
-	IDTIPO INTEGER, --Categoría de la habitación
-	ESTADO TEXT, --Estado actual L=Libre, O=Ocupado, R=Reservada
-	FOREIGN KEY(IDTIPO) REFERENCES tipo_habitacion(ID)
+	TIPO TEXT, --Categoría de la habitación, S=Simple, D=Doble, U=suite
+	ESTADO TEXT --Estado actual L=Libre, O=Ocupado, R=Reservada
 );
 
 /*
@@ -93,3 +80,20 @@ CREATE TABLE facturas(
 	IDHOSPEDAJE INTEGER, --Hospedaje base de la factura
 	FOREIGN KEY (IDHOSPEDAJE) REFERENCES hospedajes(ID)
 );
+
+/*
+*	Datos base
+*/
+/* Usuarios */
+INSERT INTO usuarios(NOMBRE,APELLIDOS,TIPO,USUARIO, PASSWORD) 
+VALUES('Administrador','Administrador','A','admin','123'), 
+('Operador','Operador','O','oper','123');
+
+/* Habitaciones */
+INSERT INTO habitaciones (NUMERO,TIPO,ESTADO) 
+VALUES(101,'S', 'L'), (102,'S', 'L'), (103,'S', 'L'), (104,'S', 'L'), (105,'S', 'L')
+(106,'S', 'L'), (107,'S', 'L'), (108,'S', 'L'), (109,'S', 'L'), (110,'S', 'L'),
+(150,'D', 'L'), (151,'D', 'L'), (152,'D', 'L'), (153,'D', 'L'), (154,'D', 'L'),
+(155,'D', 'L'), (156,'D', 'L'), (157,'D', 'L'), (158,'D', 'L'), (159,'D', 'L'), (160,'D', 'L'),
+(170,'U', 'L'), (171,'U', 'L'), (172,'U', 'L'), (173,'U', 'L'), (174,'U', 'L');
+
