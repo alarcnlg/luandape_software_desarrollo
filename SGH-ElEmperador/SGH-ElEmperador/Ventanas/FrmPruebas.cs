@@ -20,8 +20,8 @@ namespace SGH_ElEmperador.Ventanas
 
         private void FrmPruebas_Load(object sender, EventArgs e)
         {
-            FacturasTB tbDat = new FacturasTB();
-            Dictionary<string, object> dr = tbDat.Consulta(1);
+            HospedajesTB tbDat = new HospedajesTB();
+            Dictionary<string,object> dr = tbDat.ConsultaHospedaje(101);
            
             //DataTable dt = tbDat.ConsultaResumen();
             if (tbDat.Error.Length <= 0)

@@ -64,7 +64,7 @@ namespace SGH_ElEmperador
 
         private void BtnConsultaHabitaciones_Click(object sender, EventArgs e)
         {
-            CargarForm(new FrmConsultaHabitaciones());
+            //CargarForm(new FrmConsultaHabitaciones());
         }
     }
 }
