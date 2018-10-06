@@ -106,6 +106,7 @@
             this.BtnConsultaHabitaciones.TabIndex = 1;
             this.BtnConsultaHabitaciones.Text = "Consulta de habitaciones";
             this.BtnConsultaHabitaciones.UseVisualStyleBackColor = true;
+            this.BtnConsultaHabitaciones.Click += new System.EventHandler(this.BtnConsultaHabitaciones_Click);
             // 
             // pictureBox1
             // 
