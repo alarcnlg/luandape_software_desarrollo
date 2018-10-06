@@ -59,10 +59,7 @@ namespace SGH_ElEmperador
 
         private void BtnSalidaHospedaje_Click(object sender, EventArgs e)
         {
-            FrmPruebas frm = new FrmPruebas();
-            frm.MdiParent = this;
-            frm.Dock = DockStyle.Fill;
-            frm.Show();
+            CargarForm(new FrmSalidaHuespedes());
         }
     }
 }
