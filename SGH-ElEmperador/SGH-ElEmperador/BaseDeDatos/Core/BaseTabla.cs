@@ -240,7 +240,7 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
                 cmdString += ") VALUES(";
                 foreach (var key in parametros.Keys)
                 {
-                    cmdString += (mostrarComa ? "," : "") + key + " = " + parametros[key].ToString();
+                    cmdString += (mostrarComa ? "," : "") + parametros[key].ToString();
                     mostrarComa = true;
                 }
                 cmdString += ")";
@@ -250,6 +250,9 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
                 {
                     throw new Exception("Error al insertar \n Tabla=" + NombreTabla + "\nID=" + id);
                 }
+
+                var dato = ConsultarDictionary("", "ID", "", "", "ID DESC LIMIT 1", "", null);
+                id = Convert.ToInt32(dato["ID"]);
                 EjecucionExitosa = true;
             }
             catch (Exception ex) {

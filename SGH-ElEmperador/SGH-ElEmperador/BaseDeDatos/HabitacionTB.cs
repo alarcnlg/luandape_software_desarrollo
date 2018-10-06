@@ -20,6 +20,15 @@ namespace SGH_ElEmperador.BaseDeDatos
             return EjecucionExitosa;
         }
 
+        public int ConsultaId(int numeroHabitacion) {
+            int id = 0;
+            Dictionary<string, object> datos = ConsultarDictionary("", "ID", "NUMERO=" + numeroHabitacion, "", "", "", null);
+            if (datos != null) {
+                id = Convert.ToInt32(datos["ID"]);
+            }
+            return id;
+        }
+
         public DataTable ConsultaResumen() {
             DataTable dtResult = new DataTable();
             DataTable dt =  ConsultarDT("",

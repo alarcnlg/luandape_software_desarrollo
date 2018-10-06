@@ -51,6 +51,11 @@ namespace SGH_ElEmperador
 
         private void CargarForm(Form frm)
         {
+            foreach (var frmChild in MdiChildren) {
+                if (frmChild.Name == frm.Name) {
+                    return;
+                }
+            }
             LblTitulo.Text = frm.Text;
             frm.MdiParent = this;
             frm.Dock = DockStyle.Fill;

@@ -14,9 +14,17 @@ namespace SGH_ElEmperador.BaseDeDatos
 
         }
 
-        public bool Guardar(ref int id, int idHospedaje, string nombre, string appellidos, string docIdentidad, DateTime fechaNacimiento)
+        public bool Guardar(ref int id, int idHospedaje, string nombre, string apellidos, string docIdentidad, DateTime fechaNacimiento)
         {
-            return true;
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("IDHOSPEDAJE", "" + idHospedaje);
+            parametros.Add("NOMBRE", "'" + nombre + "'");
+            parametros.Add("APELLIDOS", "'" + apellidos + "'");
+            parametros.Add("DOCIDENTIDAD", "'" + docIdentidad + "'");
+            parametros.Add("FECHANACIMIENTO", "'" + fechaNacimiento.ToString("yyyyMMdd") + "'");
+
+            Guardar(ref id, parametros);
+            return EjecucionExitosa;
         }
 
         public DataTable ConsultaGeneral(int idHospedaje)

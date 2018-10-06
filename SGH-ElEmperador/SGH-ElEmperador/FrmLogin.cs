@@ -30,33 +30,12 @@ namespace SGH_ElEmperador
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {
-
+            StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void BtnAceptar_Click(object sender, EventArgs e)
         {
-            if (!ValidarDatos()) return;
-            Dictionary<string, object> result = _tbDatos.ValidarLogin(TxtUsuario.Text, TxtPassword.Text);
-            if (result == null)
-            {
-                if (_tbDatos.Error.Length == 0)
-                {
-                    MessageBox.Show("Usuario o Contraseña no valido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else {
-                    MessageBox.Show(_tbDatos.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }      
-            }
-            else
-            {
-                ModuloGeneral.IDUsuario =  Convert.ToInt32(result["ID"]);
-                ModuloGeneral.UsuarioActivo = TxtUsuario.Text;
-                ModuloGeneral.Administrador = Convert.ToBoolean(result["ADMINISTRADOR"]);
-
-                FrmMDI frmMDI = new FrmMDI();
-                frmMDI.Show();
-                Hide();
-            }
+            Ingresar();
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
@@ -78,5 +57,36 @@ namespace SGH_ElEmperador
             return true;
         }
 
+        private void TxtPassword_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter) return;
+            Ingresar();
+        }
+
+        private void Ingresar() {
+            if (!ValidarDatos()) return;
+            Dictionary<string, object> result = _tbDatos.ValidarLogin(TxtUsuario.Text, TxtPassword.Text);
+            if (result == null)
+            {
+                if (_tbDatos.Error.Length == 0)
+                {
+                    MessageBox.Show("Usuario o Contraseña no valido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show(_tbDatos.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                ModuloGeneral.IDUsuario = Convert.ToInt32(result["ID"]);
+                ModuloGeneral.UsuarioActivo = TxtUsuario.Text;
+                ModuloGeneral.Administrador = Convert.ToBoolean(result["ADMINISTRADOR"]);
+
+                FrmMDI frmMDI = new FrmMDI();
+                frmMDI.Show();
+                Hide();
+            }
+        }
     }
 }

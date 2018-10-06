@@ -23,7 +23,7 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
         public static ConexionBD Instancia {
             get {
                 if (_instancia == null) {
-                    _instancia = new ConexionBD(@"Data Source=General\Data\DB-SGH-ElEmperador.db");
+                    _instancia = new ConexionBD(@"Data Source=C:\Users\alarc\UDID\ITSZN\Gestión de Proyectos de Software\Proyecto Hotel El Emperador\luandape_software_desarrollo\SGH-ElEmperador\SGH-ElEmperador\General\Data\DB-SGH-ElEmperador.db");
                 }
                 return _instancia;
             }

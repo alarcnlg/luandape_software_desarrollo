@@ -38,7 +38,6 @@
             this.BtnCerrar = new System.Windows.Forms.Button();
             this.BtnRegistrar = new System.Windows.Forms.Button();
             this.BtnNuevo = new System.Windows.Forms.Button();
-            this.BtnBuscarHabitaciones = new System.Windows.Forms.Button();
             this.DtgvHabitaciones = new System.Windows.Forms.DataGridView();
             this.LblHabitacion = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -57,6 +56,8 @@
             this.TbCrHuespedes = new System.Windows.Forms.TabControl();
             this.label5 = new System.Windows.Forms.Label();
             this.TxtDias = new System.Windows.Forms.TextBox();
+            this.TxtFecha = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DtgvHabitaciones)).BeginInit();
             this.TbPage1.SuspendLayout();
             this.TbCrHuespedes.SuspendLayout();
@@ -78,11 +79,12 @@
             this.TxtNumeroPersonas.Size = new System.Drawing.Size(37, 20);
             this.TxtNumeroPersonas.TabIndex = 1;
             this.TxtNumeroPersonas.TextChanged += new System.EventHandler(this.TxtNumeroPersonas_TextChanged);
+            this.TxtNumeroPersonas.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtNumeroPersonas_KeyUp);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 212);
+            this.label2.Location = new System.Drawing.Point(43, 212);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 13);
             this.label2.TabIndex = 5;
@@ -126,42 +128,33 @@
             // 
             // BtnCerrar
             // 
-            this.BtnCerrar.Location = new System.Drawing.Point(378, 426);
+            this.BtnCerrar.Location = new System.Drawing.Point(378, 430);
             this.BtnCerrar.Name = "BtnCerrar";
             this.BtnCerrar.Size = new System.Drawing.Size(97, 43);
             this.BtnCerrar.TabIndex = 10;
             this.BtnCerrar.Text = "Cerrar";
             this.BtnCerrar.UseVisualStyleBackColor = true;
+            this.BtnCerrar.Click += new System.EventHandler(this.BtnCerrar_Click);
             // 
             // BtnRegistrar
             // 
-            this.BtnRegistrar.Location = new System.Drawing.Point(584, 426);
+            this.BtnRegistrar.Location = new System.Drawing.Point(584, 430);
             this.BtnRegistrar.Name = "BtnRegistrar";
             this.BtnRegistrar.Size = new System.Drawing.Size(97, 43);
-            this.BtnRegistrar.TabIndex = 11;
+            this.BtnRegistrar.TabIndex = 8;
             this.BtnRegistrar.Text = "Registrar";
             this.BtnRegistrar.UseVisualStyleBackColor = true;
             this.BtnRegistrar.Click += new System.EventHandler(this.BtnRegistrar_Click);
             // 
             // BtnNuevo
             // 
-            this.BtnNuevo.Location = new System.Drawing.Point(481, 426);
+            this.BtnNuevo.Location = new System.Drawing.Point(481, 430);
             this.BtnNuevo.Name = "BtnNuevo";
             this.BtnNuevo.Size = new System.Drawing.Size(97, 43);
-            this.BtnNuevo.TabIndex = 12;
+            this.BtnNuevo.TabIndex = 9;
             this.BtnNuevo.Text = "Nuevo";
             this.BtnNuevo.UseVisualStyleBackColor = true;
             this.BtnNuevo.Click += new System.EventHandler(this.BtnNuevo_Click);
-            // 
-            // BtnBuscarHabitaciones
-            // 
-            this.BtnBuscarHabitaciones.Location = new System.Drawing.Point(209, 24);
-            this.BtnBuscarHabitaciones.Name = "BtnBuscarHabitaciones";
-            this.BtnBuscarHabitaciones.Size = new System.Drawing.Size(144, 23);
-            this.BtnBuscarHabitaciones.TabIndex = 17;
-            this.BtnBuscarHabitaciones.Text = "Buscar Habitaciones";
-            this.BtnBuscarHabitaciones.UseVisualStyleBackColor = true;
-            this.BtnBuscarHabitaciones.Click += new System.EventHandler(this.BtnBuscarHabitaciones_Click);
             // 
             // DtgvHabitaciones
             // 
@@ -179,14 +172,14 @@
             this.DtgvHabitaciones.ReadOnly = true;
             this.DtgvHabitaciones.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.DtgvHabitaciones.RowHeadersVisible = false;
-            this.DtgvHabitaciones.Size = new System.Drawing.Size(632, 84);
+            this.DtgvHabitaciones.Size = new System.Drawing.Size(632, 56);
             this.DtgvHabitaciones.TabIndex = 18;
             this.DtgvHabitaciones.CurrentCellChanged += new System.EventHandler(this.DtgvHabitaciones_CurrentCellChanged);
             // 
             // LblHabitacion
             // 
             this.LblHabitacion.AutoSize = true;
-            this.LblHabitacion.Location = new System.Drawing.Point(566, 29);
+            this.LblHabitacion.Location = new System.Drawing.Point(278, 29);
             this.LblHabitacion.Name = "LblHabitacion";
             this.LblHabitacion.Size = new System.Drawing.Size(112, 13);
             this.LblHabitacion.TabIndex = 19;
@@ -251,7 +244,7 @@
             this.TxtDocIdentidad.Location = new System.Drawing.Point(503, 12);
             this.TxtDocIdentidad.Name = "TxtDocIdentidad";
             this.TxtDocIdentidad.Size = new System.Drawing.Size(84, 20);
-            this.TxtDocIdentidad.TabIndex = 7;
+            this.TxtDocIdentidad.TabIndex = 6;
             // 
             // TxtApellidos
             // 
@@ -273,7 +266,7 @@
             this.DtpFechaNacimiento.Location = new System.Drawing.Point(503, 48);
             this.DtpFechaNacimiento.Name = "DtpFechaNacimiento";
             this.DtpFechaNacimiento.Size = new System.Drawing.Size(84, 20);
-            this.DtpFechaNacimiento.TabIndex = 6;
+            this.DtpFechaNacimiento.TabIndex = 7;
             this.DtpFechaNacimiento.ValueChanged += new System.EventHandler(this.DtpFechaNacimiento_ValueChanged);
             // 
             // LblFechaNacimiento
@@ -316,7 +309,7 @@
             // 
             this.TbCrHuespedes.Controls.Add(this.TbPage1);
             this.TbCrHuespedes.Enabled = false;
-            this.TbCrHuespedes.Location = new System.Drawing.Point(39, 237);
+            this.TbCrHuespedes.Location = new System.Drawing.Point(46, 237);
             this.TbCrHuespedes.Name = "TbCrHuespedes";
             this.TbCrHuespedes.SelectedIndex = 0;
             this.TbCrHuespedes.Size = new System.Drawing.Size(642, 109);
@@ -341,11 +334,31 @@
             this.TxtDias.TabIndex = 25;
             this.TxtDias.TextChanged += new System.EventHandler(this.TxtDias_TextChanged);
             // 
+            // TxtFecha
+            // 
+            this.TxtFecha.Location = new System.Drawing.Point(606, 26);
+            this.TxtFecha.Name = "TxtFecha";
+            this.TxtFecha.ReadOnly = true;
+            this.TxtFecha.Size = new System.Drawing.Size(71, 20);
+            this.TxtFecha.TabIndex = 26;
+            this.TxtFecha.Text = "06/10/2018";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(560, 29);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(40, 13);
+            this.label6.TabIndex = 27;
+            this.label6.Text = "Fecha:";
+            // 
             // FrmRegistroHospedaje
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(696, 491);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.TxtFecha);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TxtDias);
             this.Controls.Add(this.label5);
@@ -355,7 +368,6 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.LblHabitacion);
             this.Controls.Add(this.DtgvHabitaciones);
-            this.Controls.Add(this.BtnBuscarHabitaciones);
             this.Controls.Add(this.BtnNuevo);
             this.Controls.Add(this.BtnRegistrar);
             this.Controls.Add(this.BtnCerrar);
@@ -369,6 +381,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmRegistroHospedaje";
             this.Text = "Registro de Hospedaje";
+            this.Load += new System.EventHandler(this.FrmRegistroHospedaje_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DtgvHabitaciones)).EndInit();
             this.TbPage1.ResumeLayout(false);
             this.TbPage1.PerformLayout();
@@ -390,7 +403,6 @@
         private System.Windows.Forms.Button BtnCerrar;
         private System.Windows.Forms.Button BtnRegistrar;
         private System.Windows.Forms.Button BtnNuevo;
-        private System.Windows.Forms.Button BtnBuscarHabitaciones;
         private System.Windows.Forms.DataGridView DtgvHabitaciones;
         private System.Windows.Forms.Label LblHabitacion;
         private System.Windows.Forms.Label label10;
@@ -409,5 +421,7 @@
         private System.Windows.Forms.TabControl TbCrHuespedes;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox TxtDias;
+        private System.Windows.Forms.TextBox TxtFecha;
+        private System.Windows.Forms.Label label6;
     }
 }

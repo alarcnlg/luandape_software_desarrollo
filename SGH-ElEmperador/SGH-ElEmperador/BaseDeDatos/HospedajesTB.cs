@@ -23,10 +23,12 @@ namespace SGH_ElEmperador.BaseDeDatos
             Dictionary<string, object> parametros = new Dictionary<string, object>();
             parametros.Add("IDHABITACION", "" + "(SELECT ID FROM habitaciones WHERE NUMERO=" + numeroHabitacion + " LIMIT 1)");
             parametros.Add("DIAS", "" + dias);
-            parametros.Add("FECHAENTRADA", "" + dias);
-            parametros.Add("SUBTOTAL", "" + dias);
-            parametros.Add("TOTAL", "" + dias);
-            parametros.Add("IDOPERADORSALIDA", "" + idOperador);
+            parametros.Add("FECHAENTRADA", "'" + fechaEntrada.ToString("yyyyMMdd") + "'");
+            parametros.Add("ESTADO", "'A'");
+            parametros.Add("SUBTOTAL", "" + subTotal);
+            parametros.Add("TOTAL", "" + total);
+            parametros.Add("IDOPERADORENTRADA", "" + idOperador);
+            Guardar(ref id, parametros);
             return EjecucionExitosa;
         }
 

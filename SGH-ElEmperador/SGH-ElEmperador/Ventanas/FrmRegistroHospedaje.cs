@@ -42,17 +42,9 @@ namespace SGH_ElEmperador.Ventanas
             _validarFecha = false;
         }
 
-        private void BtnBuscarHabitaciones_Click(object sender, EventArgs e)
+        private void FrmRegistroHospedaje_Load(object sender, EventArgs e)
         {
-            if (TxtNumeroPersonas.Text.Length > 0) {
-                HabitacionTB tbHabitaciones = new HabitacionTB();
-                DataTable dt = tbHabitaciones.ConsultaHabitacionesLibres(Convert.ToInt32(TxtNumeroPersonas.Text.Length));
-                CrearHabitacionesLibres(dt);
-                CrearTabsDatosHuespedes();
-                TxtDias.Text = "1";
-                TbCrHuespedes.Enabled = true;
-                TxtDias.Enabled = true;
-            }
+            TxtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
         }
 
         private void CrearHabitacionesLibres(DataTable dt)
@@ -91,7 +83,7 @@ namespace SGH_ElEmperador.Ventanas
                     rowHabit[0] = "SIMPLE/400.00$";
                 }
                 else if (datos[i]["TITULO"] == "D") {
-                    rowHabit[0] = "SIMPLE/800.00$";
+                    rowHabit[0] = "DOBLE/800.00$";
                 }
                 else
                 {
@@ -104,13 +96,13 @@ namespace SGH_ElEmperador.Ventanas
             }
             
             DtgvHabitaciones.DataSource = dtHabitaciones;
+            FormatearDataGridView();
         }
 
         private void FormatearDataGridView() {
             DtgvHabitaciones.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             for (int i = 1; i < DtgvHabitaciones.Columns.Count; i++) {
-                DtgvHabitaciones.Columns[1].Width = 50;
-                DtgvHabitaciones.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                DtgvHabitaciones.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
             }
         }
 
@@ -122,7 +114,7 @@ namespace SGH_ElEmperador.Ventanas
 
         private void AplicarDatosHabitación(DataGridViewCell celda)
         {         
-            if (DtgvHabitaciones.CurrentCell.ColumnIndex != 0)
+            if (DtgvHabitaciones.CurrentCell.ColumnIndex != 0 && celda.Value.ToString().Length > 0)
             {
                 string info = DtgvHabitaciones.Rows[DtgvHabitaciones.CurrentCell.RowIndex].Cells[0].Value.ToString().Substring(0, 2);
 
@@ -150,6 +142,7 @@ namespace SGH_ElEmperador.Ventanas
             else
             {
                 _categoriaHabitacion = "N";
+                _numeroHabitacion = "";
                 _precioHabitacion = 0;
                 LblHabitacion.Text = "Seleccione Habitación";
             }
@@ -175,23 +168,26 @@ namespace SGH_ElEmperador.Ventanas
             tbPage.Controls.Add(DtpFechaNacimiento);
 
             TxtNombre.Text = _datosHuespedes[_ultimoIndexHuespedTab]["NOMBRE"].ToString();
-            TxtApellidos.Text = _datosHuespedes[_ultimoIndexHuespedTab]["APPELLIDOS"].ToString();
+            TxtApellidos.Text = _datosHuespedes[_ultimoIndexHuespedTab]["APELLIDOS"].ToString();
             TxtDocIdentidad.Text = _datosHuespedes[_ultimoIndexHuespedTab]["DOCIDENTIDAD"].ToString();
             DtpFechaNacimiento.Value = Convert.ToDateTime(_datosHuespedes[_ultimoIndexHuespedTab]["FECHANACIMIENTO"]);
             _actualizarPrecios = true;
         }
 
-        private void GuardarDatosHuesped()
+        private void GuardarDatosHuesped(bool limpiar = true)
         {
             _datosHuespedes[_ultimoIndexHuespedTab]["NOMBRE"] = TxtNombre.Text;
-            _datosHuespedes[_ultimoIndexHuespedTab]["APPELLIDOS"] = TxtApellidos.Text;
-            _datosHuespedes[_ultimoIndexHuespedTab]["DOCIDENTIDAD"] =TxtDocIdentidad.Text;
+            _datosHuespedes[_ultimoIndexHuespedTab]["APELLIDOS"] = TxtApellidos.Text;
+            _datosHuespedes[_ultimoIndexHuespedTab]["DOCIDENTIDAD"] = TxtDocIdentidad.Text;
             _datosHuespedes[_ultimoIndexHuespedTab]["FECHANACIMIENTO"] = DtpFechaNacimiento.Value;
 
-            TxtNombre.Text = "";
-            TxtApellidos.Text = "";
-            TxtDocIdentidad.Text = "";
-            DtpFechaNacimiento.Value = DateTime.Now;
+            if (limpiar)
+            {
+                TxtNombre.Text = "";
+                TxtApellidos.Text = "";
+                TxtDocIdentidad.Text = "";
+                DtpFechaNacimiento.Value = DateTime.Now;
+            }
         }
 
         private void CrearTabsDatosHuespedes() {
@@ -204,7 +200,7 @@ namespace SGH_ElEmperador.Ventanas
             {
                 Dictionary<string, object> huesped = new Dictionary<string, object>();
                 huesped.Add("NOMBRE", "");
-                huesped.Add("APPELLIDOS", "");
+                huesped.Add("APELLIDOS", "");
                 huesped.Add("DOCIDENTIDAD", "");
                 huesped.Add("FECHANACIMIENTO", DateTime.Now);
                 _datosHuespedes.Add(huesped);
@@ -231,19 +227,27 @@ namespace SGH_ElEmperador.Ventanas
                 for (int i = 1; i < numeroPersonas; i++)
                 {
                     DateTime nacimiento = (DateTime)_datosHuespedes[i]["FECHANACIMIENTO"];
-                    int edad = nacimiento.AddTicks(-DateTime.Today.Ticks).Year - 1;
+                    int edad = 0;
+                    try
+                    {
+                        edad = nacimiento.AddTicks(-DateTime.Today.Ticks).Year - 1;
+                    }
+                    catch (Exception ex) {
+                        edad = 1;
+                    }
                     if (_categoriaHabitacion == "D" && edad < 16 && numNinios < 2)
                     {
                         numNinios++;
+                        subTotal += _precioHabitacion * 0.5f;
                     }
                     else
                     {
-                        subTotal += _precioHabitacion * 1.5f;
+                        subTotal += _precioHabitacion * 0.5f;
                     }
                 }
             }
             else {
-                subTotal = _precioHabitacion * numeroPersonas;
+                subTotal = _precioHabitacion + ((numeroPersonas - 1 ) * _precioHabitacion * 0.5f);
             }
 
             subTotal *= numeroDias;
@@ -286,11 +290,16 @@ namespace SGH_ElEmperador.Ventanas
         }
 
         private bool Validar() {
-            GuardarDatosHuesped();
-
+            GuardarDatosHuesped(false);
+            
             if (TxtNumeroPersonas.Text.Length <= 0)
             {
-                MessageBox.Show("Es necesario el número depersonas", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Es necesario el número de personas", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            if (_numeroHabitacion.Length <= 0) {
+                MessageBox.Show("Es necesario seleccionar una habitación", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
 
@@ -307,8 +316,8 @@ namespace SGH_ElEmperador.Ventanas
                     MessageBox.Show("Es necesario el nombre del huesped " + (i+1), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false;
                 }
-
-                if (huesped["APPELLIDOS"].ToString().Length <= 0)
+                
+                if (huesped["APELLIDOS"].ToString().Length <= 0)
                 {
                     MessageBox.Show("Es necesario los apellidos del huesped " + (i + 1), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false;
@@ -327,7 +336,6 @@ namespace SGH_ElEmperador.Ventanas
                 }
 
             }
-
             return true;
         }
 
@@ -336,61 +344,113 @@ namespace SGH_ElEmperador.Ventanas
             TxtNumeroPersonas.Text = "";
             TxtDias.Text = "";
 
+            TxtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
+
             TxtNombre.Text = "";
             TxtApellidos.Text = "";
             TxtDocIdentidad.Text = "";
             DtpFechaNacimiento.Value = DateTime.Now;
 
             DtgvHabitaciones.DataSource = null;
-            _actualizarPrecios = true;
 
             LblHabitacion.Text = "Seleccione habitación";
-            LblHabitacion.Text = "0.00";
+            LblPrecioHabitacion.Text = "0.00";
             LblSubTotal.Text = "0.00";
             LblIVA.Text = "0.00";
             LblTotal.Text = "0.00";
+
+            for (int i = TbCrHuespedes.TabPages.Count - 1; i > 0; i--)
+                TbCrHuespedes.TabPages.RemoveAt(i);
+
+            TxtNombre.Text = "";
+            TxtApellidos.Text = "";
+            TxtDocIdentidad.Text = "";
+            DtpFechaNacimiento.Value = DateTime.Now;
+
+            _actualizarPrecios = true;
 
         }
 
         private void BtnRegistrar_Click(object sender, EventArgs e)
         {
-            if(!Validar()) return;
+            _actualizarPrecios = false;
+            if (!Validar()) {
+                _actualizarPrecios = true;
+                return;
+            }
             int id = 0;
+            int idHuesped = 0;
+            bool error = false;
             HuespedesTB tbHuespedes = new HuespedesTB();
+            HabitacionTB tbHabitaciones = new HabitacionTB();
 
             if (_tbDatos.RegistrarEntrada(ref id,
                                     _numeroHabitacion,
                                     Convert.ToInt32(TxtDias.Text),
                                     DateTime.Now,
-                                    Convert.ToInt32(LblSubTotal.Text),
-                                    Convert.ToInt32(LblTotal.Text),
+                                    Convert.ToSingle(LblSubTotal.Text),
+                                    Convert.ToSingle(LblTotal.Text),
                                     ModuloGeneral.IDUsuario))
 
             {
+                if (!tbHabitaciones.ActualizarEstado(tbHabitaciones.ConsultaId(Convert.ToInt32(_numeroHabitacion)), 'O')) {
+
+                    MessageBox.Show(tbHabitaciones.Error, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    error = true;
+                }
+
                 for (int i = 0; i < _datosHuespedes.Count; i++)
                 {
-                    if (!_tbDatos.RegistrarEntrada(ref id,
-                                       _numeroHabitacion,
-                                       Convert.ToInt32(TxtDias.Text),
-                                       DateTime.Now,
-                                       Convert.ToInt32(LblSubTotal.Text),
-                                       Convert.ToInt32(LblTotal.Text),
-                                       ModuloGeneral.IDUsuario))
+                    if (!tbHuespedes.Guardar(ref idHuesped,
+                                            id,
+                                            _datosHuespedes[i]["NOMBRE"].ToString(),
+                                            _datosHuespedes[i]["APELLIDOS"].ToString(),
+                                            _datosHuespedes[i]["DOCIDENTIDAD"].ToString(),
+                                             (DateTime)_datosHuespedes[i]["FECHANACIMIENTO"])) 
                     {
                         MessageBox.Show(tbHuespedes.Error, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        error = true;
+                        break;
                     }
                 }
             }
             else {
                 MessageBox.Show(_tbDatos.Error, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                error = true;
             }
-
+            if (!error) {
+                MessageBox.Show("Entrada registrada correctamente", "GUARDADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Limipiar();
+            }
+            _actualizarPrecios = true;
         }
 
         private void BtnNuevo_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Se limpiaran todos los datos del formulario\n¿Está seguro de continuar", "LIMPIAR",MessageBoxButtons.OKCancel,MessageBoxIcon.Exclamation) != DialogResult.OK) return;
             Limipiar();
+        }
+
+        private void TxtNumeroPersonas_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter) return;
+
+            if (TxtNumeroPersonas.Text.Length > 0)
+            {
+                HabitacionTB tbHabitaciones = new HabitacionTB();
+                DataTable dt = tbHabitaciones.ConsultaHabitacionesLibres(Convert.ToInt32(TxtNumeroPersonas.Text));
+                CrearHabitacionesLibres(dt);
+                CrearTabsDatosHuespedes();
+                TxtDias.Text = "1";
+                TbCrHuespedes.Enabled = true;
+                TxtDias.Enabled = true;
+            }
+
+        }
+
+        private void BtnCerrar_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 
