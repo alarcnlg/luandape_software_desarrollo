@@ -21,6 +21,11 @@ namespace SGH_ElEmperador.BaseDeDatos
 
         public bool RegistrarEntrada(ref int id, string numeroHabitacion, int dias, DateTime fechaEntrada, float subTotal, float total, int idOperador) {
             Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("IDHABITACION", "" + "(SELECT ID FROM habitaciones WHERE NUMERO=" + numeroHabitacion + " LIMIT 1)");
+            parametros.Add("DIAS", "" + dias);
+            parametros.Add("FECHAENTRADA", "" + dias);
+            parametros.Add("SUBTOTAL", "" + dias);
+            parametros.Add("TOTAL", "" + dias);
             parametros.Add("IDOPERADORSALIDA", "" + idOperador);
             return EjecucionExitosa;
         }
