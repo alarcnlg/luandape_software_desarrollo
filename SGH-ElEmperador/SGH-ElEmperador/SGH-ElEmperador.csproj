@@ -100,7 +100,6 @@
     <Compile Include="ModuloGeneral.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-<<<<<<< HEAD
     <Compile Include="Ventanas\FrmListadoFactura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,8 +111,6 @@
     </Compile>
     <Compile Include="Ventanas\FrmConsultaHabitaciones.Designer.cs">
       <DependentUpon>FrmConsultaHabitaciones.cs</DependentUpon>
-=======
->>>>>>> 552fd9ef65c2e45453fd1e04381f91fe21b24a02
     <Compile Include="Ventanas\FrmFactura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,14 +144,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <EmbeddedResource Include="Ventanas\FrmConsultaHabitaciones.resx">
       <DependentUpon>FrmConsultaHabitaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\FrmListadoFactura.resx">
       <DependentUpon>FrmListadoFactura.cs</DependentUpon>
-=======
->>>>>>> 552fd9ef65c2e45453fd1e04381f91fe21b24a02
     <EmbeddedResource Include="Ventanas\FrmFactura.resx">
       <DependentUpon>FrmFactura.cs</DependentUpon>
     </EmbeddedResource>

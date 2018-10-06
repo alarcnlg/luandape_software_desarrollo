@@ -59,15 +59,12 @@ namespace SGH_ElEmperador
 
         private void BtnSalidaHospedaje_Click(object sender, EventArgs e)
         {
-            CargarForm(new FrmSalidaHuespedes());
-<<<<<<< HEAD
+            //CargarForm(new FrmSalidaHuespedes());
         }
 
         private void BtnConsultaHabitaciones_Click(object sender, EventArgs e)
         {
             CargarForm(new FrmConsultaHabitaciones());
-=======
->>>>>>> 552fd9ef65c2e45453fd1e04381f91fe21b24a02
         }
     }
 }
