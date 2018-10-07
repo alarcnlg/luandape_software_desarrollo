@@ -80,14 +80,14 @@ namespace SGH_ElEmperador.Ventanas
             for (int i = 0; i < datos.Count; i++) {
                 rowHabit = dtHabitaciones.NewRow();
                 if (datos[i]["TITULO"] == "S") {
-                    rowHabit[0] = "SIMPLE/400.00$";
+                    rowHabit[0] = "SIMPLE/$400.00";
                 }
                 else if (datos[i]["TITULO"] == "D") {
-                    rowHabit[0] = "DOBLE/800.00$";
+                    rowHabit[0] = "DOBLE/$800.00";
                 }
                 else
                 {
-                    rowHabit[0] = "SUITE/1200.00$";
+                    rowHabit[0] = "SUITE/$1200.00";
                 }
                 for (int j = 1; j < datos[i].Count; j++) {
                     rowHabit[j] = datos[i]["NUM" + datos[i]["TITULO"] + j];
@@ -431,9 +431,14 @@ namespace SGH_ElEmperador.Ventanas
             Limipiar();
         }
 
-        private void TxtNumeroPersonas_KeyUp(object sender, KeyEventArgs e)
+        private void BtnCerrar_Click(object sender, EventArgs e)
         {
-            if (e.KeyCode != Keys.Enter) return;
+            ModuloGeneral.MDI.CerrarForm(this);
+        }
+
+        private void TxtNumeroPersonas_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != '\r') return;
 
             if (TxtNumeroPersonas.Text.Length > 0)
             {
@@ -445,12 +450,6 @@ namespace SGH_ElEmperador.Ventanas
                 TbCrHuespedes.Enabled = true;
                 TxtDias.Enabled = true;
             }
-
-        }
-
-        private void BtnCerrar_Click(object sender, EventArgs e)
-        {
-            Close();
         }
     }
 

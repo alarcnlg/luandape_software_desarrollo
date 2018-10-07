@@ -48,20 +48,6 @@ namespace SGH_ElEmperador
             CargarForm(new FrmRegistroHospedaje());
         }
 
-
-        private void CargarForm(Form frm)
-        {
-            foreach (var frmChild in MdiChildren) {
-                if (frmChild.Name == frm.Name) {
-                    return;
-                }
-            }
-            LblTitulo.Text = frm.Text;
-            frm.MdiParent = this;
-            frm.Dock = DockStyle.Fill;
-            frm.Show();
-        }
-
         private void BtnSalidaHospedaje_Click(object sender, EventArgs e)
         {
             CargarForm(new FrmSalidaHuespedes());
@@ -71,5 +57,34 @@ namespace SGH_ElEmperador
         {
             CargarForm(new FrmConsultaHabitaciones());
         }
+
+        private void BtnImprimirFactura_Click(object sender, EventArgs e)
+        {
+            CargarForm(new FrmListadoFactura());
+        }
+
+        public void CargarForm(Form frm)
+        {
+            foreach (var frmChild in MdiChildren)
+            {
+                if (frmChild.Name == frm.Name)
+                {
+                    frmChild.BringToFront();
+                    LblTitulo.Text = frmChild.Text;
+                    return;
+                }
+            }
+            LblTitulo.Text = frm.Text;
+            frm.MdiParent = this;
+            frm.Dock = DockStyle.Fill;
+            frm.Show();
+        }
+
+        public void CerrarForm(Form frm)
+        {
+            frm.Close();
+            LblTitulo.Text = "Hotel \"El Emperador\"";
+        }
+
     }
 }

@@ -11,5 +11,6 @@ namespace SGH_ElEmperador
         static public int IDUsuario { get; set; }
         static public string UsuarioActivo { get; set; }
         static public bool Administrador { get; set; }
+        static public FrmMDI MDI { get; set; }
     }
 }

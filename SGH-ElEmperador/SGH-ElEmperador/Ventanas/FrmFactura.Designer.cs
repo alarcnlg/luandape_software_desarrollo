@@ -38,6 +38,7 @@
             this.TxtVistaPrevia.Location = new System.Drawing.Point(34, 28);
             this.TxtVistaPrevia.Multiline = true;
             this.TxtVistaPrevia.Name = "TxtVistaPrevia";
+            this.TxtVistaPrevia.ReadOnly = true;
             this.TxtVistaPrevia.Size = new System.Drawing.Size(621, 288);
             this.TxtVistaPrevia.TabIndex = 0;
             this.TxtVistaPrevia.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -70,6 +71,7 @@
             this.Controls.Add(this.BtnCancelar);
             this.Controls.Add(this.BtnGuardar);
             this.Controls.Add(this.TxtVistaPrevia);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmFactura";
             this.Text = "FrmFactura";
             this.Load += new System.EventHandler(this.FrmFactura_Load);

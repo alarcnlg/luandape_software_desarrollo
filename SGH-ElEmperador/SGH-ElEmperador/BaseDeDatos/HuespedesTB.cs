@@ -21,7 +21,7 @@ namespace SGH_ElEmperador.BaseDeDatos
             parametros.Add("NOMBRE", "'" + nombre + "'");
             parametros.Add("APELLIDOS", "'" + apellidos + "'");
             parametros.Add("DOCIDENTIDAD", "'" + docIdentidad + "'");
-            parametros.Add("FECHANACIMIENTO", "'" + fechaNacimiento.ToString("yyyyMMdd") + "'");
+            parametros.Add("FECHANACIMIENTO", "'" + fechaNacimiento.ToString("yyyy-MM-dd") + "'");
 
             Guardar(ref id, parametros);
             return EjecucionExitosa;

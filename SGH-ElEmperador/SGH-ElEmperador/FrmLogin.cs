@@ -57,9 +57,9 @@ namespace SGH_ElEmperador
             return true;
         }
 
-        private void TxtPassword_KeyUp(object sender, KeyEventArgs e)
+        private void TxtPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyCode != Keys.Enter) return;
+            if (e.KeyChar != '\r') return;
             Ingresar();
         }
 
@@ -86,7 +86,10 @@ namespace SGH_ElEmperador
                 FrmMDI frmMDI = new FrmMDI();
                 frmMDI.Show();
                 Hide();
+
+                ModuloGeneral.MDI = frmMDI;
             }
         }
+
     }
 }

@@ -39,20 +39,23 @@
             this.DtgvListadoHabitacion.AllowUserToDeleteRows = false;
             this.DtgvListadoHabitacion.AllowUserToResizeColumns = false;
             this.DtgvListadoHabitacion.AllowUserToResizeRows = false;
+            this.DtgvListadoHabitacion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DtgvListadoHabitacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DtgvListadoHabitacion.Location = new System.Drawing.Point(66, 23);
+            this.DtgvListadoHabitacion.Location = new System.Drawing.Point(12, 33);
             this.DtgvListadoHabitacion.Name = "DtgvListadoHabitacion";
             this.DtgvListadoHabitacion.ReadOnly = true;
             this.DtgvListadoHabitacion.RowHeadersVisible = false;
-            this.DtgvListadoHabitacion.Size = new System.Drawing.Size(632, 193);
+            this.DtgvListadoHabitacion.Size = new System.Drawing.Size(657, 193);
             this.DtgvListadoHabitacion.TabIndex = 0;
             this.DtgvListadoHabitacion.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // BtnCancelar
             // 
-            this.BtnCancelar.Location = new System.Drawing.Point(593, 275);
+            this.BtnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnCancelar.Location = new System.Drawing.Point(564, 251);
             this.BtnCancelar.Name = "BtnCancelar";
-            this.BtnCancelar.Size = new System.Drawing.Size(105, 23);
+            this.BtnCancelar.Size = new System.Drawing.Size(105, 45);
             this.BtnCancelar.TabIndex = 1;
             this.BtnCancelar.Text = "Cancelar";
             this.BtnCancelar.UseVisualStyleBackColor = true;
@@ -62,11 +65,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(681, 308);
             this.Controls.Add(this.BtnCancelar);
             this.Controls.Add(this.DtgvListadoHabitacion);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmConsultaHabitaciones";
-            this.Text = "Form1";
+            this.Text = "Consulta de Habitaciones";
             this.Load += new System.EventHandler(this.FrmConsultaHabitaciones_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DtgvListadoHabitacion)).EndInit();
             this.ResumeLayout(false);

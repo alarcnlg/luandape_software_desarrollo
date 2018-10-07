@@ -23,6 +23,8 @@ namespace SGH_ElEmperador.Ventanas
     {
         int _id;
         HospedajesTB _tbDatos;
+        int _numeroHabitacion;
+
         public FrmSalidaHuespedes()
         {
             InitializeComponent();
@@ -31,76 +33,69 @@ namespace SGH_ElEmperador.Ventanas
 
         private void FrmSalidaHuespedes_Load(object sender, EventArgs e)
         {
-
+            _numeroHabitacion = 0;
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void TxtNumero_KeyPress(object sender, KeyPressEventArgs e)
         {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TxtNumero_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyChar == '\r')
             {
                 Dictionary<string, object> datos = _tbDatos.ConsultaHospedaje(Convert.ToInt32(TxtNumero.Text));
                 if (_tbDatos.Error.Length > 0)
                 {
-                    MessageBox.Show("ERROR", _tbDatos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(_tbDatos.Error, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                if(datos == null)
+                if (datos == null)
                 {
-                    MessageBox.Show("No se encontraron datos en esta habitacion","NO ENCONTRADO",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se encontraron datos en esta habitacion", "NO ENCONTRADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
+                _numeroHabitacion = Convert.ToInt32(TxtNumero.Text);
                 _id = Convert.ToInt32(datos["ID"]);
-                LblFechaDeSalida.Text = datos["FECHASALIDA"].ToString();
+                LblFechaDeSalida.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 LblDiasDeAlojamiento.Text = datos["DIAS"].ToString();
-                LblTotal.Text = datos["TOTAL"].ToString();
+                LblTotal.Text = Convert.ToSingle(datos["TOTAL"].ToString()).ToString("#,###,##0.00");
             }
-        }
-
-        private void LblTotal_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
-            Close();
-        }
-
-        private void TxtNumero_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BtnGenerarFactura_Click(object sender, EventArgs e)
-        {
-
+            ModuloGeneral.MDI.CerrarForm(this);
         }
 
         private void BtnRegistrarSalida_Click(object sender, EventArgs e)
         {
-            _tbDatos.RegtistrarSalida(_id, DateTime.Now,ModuloGeneral.IDUsuario);
+            if (_numeroHabitacion <= 0) return;
+            HabitacionTB tbHabitaciones = new HabitacionTB();
+            FacturasTB tbFacturas = new FacturasTB();
+            int idFactura = 0;
+
+            _tbDatos.RegistrarSalida(_id, DateTime.Now,ModuloGeneral.IDUsuario);
 
             if (_tbDatos.Error.Length > 0)
             {
-                MessageBox.Show("errror", _tbDatos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ERROR", _tbDatos.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            MessageBox.Show("salida registrada correctamente","guardado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (!tbHabitaciones.ActualizarEstado(tbHabitaciones.ConsultaId(Convert.ToInt32(_numeroHabitacion)), 'L'))
+            {
+                MessageBox.Show(tbHabitaciones.Error, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (!tbFacturas.Guardar(ref idFactura, _id))
+            {
+                MessageBox.Show(tbHabitaciones.Error, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            MessageBox.Show("Salida registrada correctamente","GUARDADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
             TxtNumero.Text = "";
             LblDiasDeAlojamiento.Text = "";
             LblFechaDeSalida.Text = "";
             LblTotal.Text = "";
             _id = 0;
         }
+
     }
 }

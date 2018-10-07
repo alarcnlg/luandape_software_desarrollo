@@ -77,6 +77,7 @@
             this.BtnImprimirFactura.TabIndex = 4;
             this.BtnImprimirFactura.Text = "Imprimir Factura";
             this.BtnImprimirFactura.UseVisualStyleBackColor = true;
+            this.BtnImprimirFactura.Click += new System.EventHandler(this.BtnImprimirFactura_Click);
             // 
             // BtnSalidaHospedaje
             // 

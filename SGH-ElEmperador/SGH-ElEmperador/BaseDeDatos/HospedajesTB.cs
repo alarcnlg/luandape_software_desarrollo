@@ -23,7 +23,7 @@ namespace SGH_ElEmperador.BaseDeDatos
             Dictionary<string, object> parametros = new Dictionary<string, object>();
             parametros.Add("IDHABITACION", "" + "(SELECT ID FROM habitaciones WHERE NUMERO=" + numeroHabitacion + " LIMIT 1)");
             parametros.Add("DIAS", "" + dias);
-            parametros.Add("FECHAENTRADA", "'" + fechaEntrada.ToString("yyyyMMdd") + "'");
+            parametros.Add("FECHAENTRADA", "'" + fechaEntrada.ToString("yyyy-MM-dd") + "'");
             parametros.Add("ESTADO", "'A'");
             parametros.Add("SUBTOTAL", "" + subTotal);
             parametros.Add("TOTAL", "" + total);
@@ -32,18 +32,19 @@ namespace SGH_ElEmperador.BaseDeDatos
             return EjecucionExitosa;
         }
 
-        public bool RegtistrarSalida(int id, DateTime fechaSalida, int idOperador) {
+        public bool RegistrarSalida(int id, DateTime fechaSalida, int idOperador) {
             Dictionary<string, object> parametros = new Dictionary<string, object>();
-            parametros.Add("FECHASALIDA", "'20180901'");
+            parametros.Add("FECHASALIDA","'" + fechaSalida.ToString("yyyy-MM-dd") + "'");
             parametros.Add("IDOPERADORSALIDA", "" + idOperador);
+            parametros.Add("ESTADO", "'C'");
             Guardar(ref id, parametros);
             return EjecucionExitosa;
         }
 
         public Dictionary<string, object> ConsultaHospedaje(int numero) {
             return ConsultarDictionary("hospedajes a",
-                                       "a.ID, b.NUMERO, a.FECHASALIDA, a.DIAS, a.TOTAL",
-                                       "b.NUMERO=" + numero,
+                                       "a.ID, b.NUMERO, a.DIAS, a.TOTAL",
+                                       "a.ESTADO='A' AND b.NUMERO=" + numero,
                                        "INNER JOIN habitaciones b ON a.IDHABITACION = b.ID", 
                                        "",
                                        "", 

@@ -29,34 +29,45 @@
         private void InitializeComponent()
         {
             this.DtgvListado = new System.Windows.Forms.DataGridView();
-            this.BtnAsignar = new System.Windows.Forms.Button();
+            this.BtnGenerar = new System.Windows.Forms.Button();
             this.BtnCancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DtgvListado)).BeginInit();
             this.SuspendLayout();
             // 
             // DtgvListado
             // 
+            this.DtgvListado.AllowUserToAddRows = false;
+            this.DtgvListado.AllowUserToDeleteRows = false;
+            this.DtgvListado.AllowUserToOrderColumns = true;
+            this.DtgvListado.AllowUserToResizeColumns = false;
+            this.DtgvListado.AllowUserToResizeRows = false;
+            this.DtgvListado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DtgvListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DtgvListado.Location = new System.Drawing.Point(59, 24);
+            this.DtgvListado.Location = new System.Drawing.Point(59, 38);
+            this.DtgvListado.MultiSelect = false;
             this.DtgvListado.Name = "DtgvListado";
-            this.DtgvListado.Size = new System.Drawing.Size(662, 175);
+            this.DtgvListado.ReadOnly = true;
+            this.DtgvListado.RowHeadersVisible = false;
+            this.DtgvListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DtgvListado.Size = new System.Drawing.Size(719, 317);
             this.DtgvListado.TabIndex = 0;
-            this.DtgvListado.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DtgvListado_CellContentClick);
             // 
-            // BtnAsignar
+            // BtnGenerar
             // 
-            this.BtnAsignar.Location = new System.Drawing.Point(175, 241);
-            this.BtnAsignar.Name = "BtnAsignar";
-            this.BtnAsignar.Size = new System.Drawing.Size(102, 23);
-            this.BtnAsignar.TabIndex = 1;
-            this.BtnAsignar.Text = "Asignar";
-            this.BtnAsignar.UseVisualStyleBackColor = true;
+            this.BtnGenerar.Location = new System.Drawing.Point(528, 377);
+            this.BtnGenerar.Name = "BtnGenerar";
+            this.BtnGenerar.Size = new System.Drawing.Size(123, 61);
+            this.BtnGenerar.TabIndex = 1;
+            this.BtnGenerar.Text = "Generar";
+            this.BtnGenerar.UseVisualStyleBackColor = true;
+            this.BtnGenerar.Click += new System.EventHandler(this.BtnGenerar_Click);
             // 
             // BtnCancelar
             // 
-            this.BtnCancelar.Location = new System.Drawing.Point(539, 241);
+            this.BtnCancelar.Location = new System.Drawing.Point(657, 377);
             this.BtnCancelar.Name = "BtnCancelar";
-            this.BtnCancelar.Size = new System.Drawing.Size(101, 23);
+            this.BtnCancelar.Size = new System.Drawing.Size(121, 61);
             this.BtnCancelar.TabIndex = 2;
             this.BtnCancelar.Text = "Cancelar";
             this.BtnCancelar.UseVisualStyleBackColor = true;
@@ -68,10 +79,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.BtnCancelar);
-            this.Controls.Add(this.BtnAsignar);
+            this.Controls.Add(this.BtnGenerar);
             this.Controls.Add(this.DtgvListado);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmListadoFactura";
-            this.Text = "Form1";
+            this.Text = "Listado de Facturas";
             this.Load += new System.EventHandler(this.FrmListadoFactura_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DtgvListado)).EndInit();
             this.ResumeLayout(false);
@@ -81,7 +93,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DtgvListado;
-        private System.Windows.Forms.Button BtnAsignar;
+        private System.Windows.Forms.Button BtnGenerar;
         private System.Windows.Forms.Button BtnCancelar;
     }
 }

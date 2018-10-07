@@ -33,8 +33,23 @@ namespace SGH_ElEmperador.Ventanas
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FileDialog fileDialog;
-
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "*.txt | Archivos de texto";
+            try
+            {
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    System.IO.StreamWriter writer = new System.IO.StreamWriter(saveDialog.FileName);
+                    writer.Write(TxtVistaPrevia.Text);
+                    writer.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            MessageBox.Show("Factura generada correctamente", "FACTURA",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -45,21 +60,27 @@ namespace SGH_ElEmperador.Ventanas
         private void FrmFactura_Load(object sender, EventArgs e)
         {
             Dictionary<string, object> datos = _tbDatos.Consulta(_id);
-            string texto = "FACTURA ELECTRONICA";
-            texto += "HOTEL \"EL EMPERADOR\" ";
-            texto += "FECHA DE ENTRADA:" + datos["FECHAENTRADA"] + "FECHA DE SALIDA:" + datos["FECHASALIDA"];
-            texto += "NÚMERO DE HABITACIÓN: " + datos["NÚMEROHABITACION"] + "TIPO: " + datos["TIPO"];
-            texto += "NOMBRE DEL HUÉSPED: ";
-            texto += "SUBTOTAL: ";
-            texto += "IVA: ";
-            texto += "TOTAL: ";
+
+            if (_tbDatos.Error.Length > 0)
+            {
+                MessageBox.Show(_tbDatos.Error, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            string texto = "FACTURA ELECTRONICA \r\n";
+            texto += "HOTEL \"EL EMPERADOR\" \r\n";
+            texto += "FECHA DE ENTRADA:" + datos["FECHAENTRADA"] + "        FECHA DE SALIDA:" + datos["FECHASALIDA"] + "\r\n";
+            texto += "NÚMERO DE HABITACIÓN: " + datos["NUMEROHABITACION"] + "       TIPO: " + datos["TIPO"] + "\r\n";
+            texto += "NOMBRE DEL HUÉSPED: " + datos["PERSONAENCARGADO"] + "\r\n";
+            texto += "SUBTOTAL: " + Convert.ToSingle(datos["SUBTOTAL"]).ToString("#,###,##0.00") + "\r\n";
+            texto += "IVA: " + (Convert.ToSingle(datos["SUBTOTAL"]) * 0.16f).ToString("#,###,##0.00") + "\r\n";
+            texto += "TOTAL: " + Convert.ToSingle(datos["TOTAL"]).ToString("#,###,##0.00") + " MXN";
 
             TxtVistaPrevia.Text = texto;
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
-            Close();
+            ModuloGeneral.MDI.CerrarForm(this);
         }
     }
 }

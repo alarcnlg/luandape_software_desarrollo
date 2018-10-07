@@ -79,7 +79,7 @@
             this.TxtNumeroPersonas.Size = new System.Drawing.Size(37, 20);
             this.TxtNumeroPersonas.TabIndex = 1;
             this.TxtNumeroPersonas.TextChanged += new System.EventHandler(this.TxtNumeroPersonas_TextChanged);
-            this.TxtNumeroPersonas.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtNumeroPersonas_KeyUp);
+            this.TxtNumeroPersonas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtNumeroPersonas_KeyPress);
             // 
             // label2
             // 

@@ -28,11 +28,25 @@ namespace SGH_ElEmperador.Ventanas
         private void FrmConsultaHabitaciones_Load(object sender, EventArgs e)
         {
             DtgvListadoHabitacion.DataSource = _tbDatos.ConsultaResumen();
+            FormatearDataGrid();
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
-            Close();
+            ModuloGeneral.MDI.CerrarForm(this);
+        }
+        private void FormatearDataGrid() {
+            DtgvListadoHabitacion.Columns[0].HeaderText = "TIPO DE HABITACIÓN";
+            DtgvListadoHabitacion.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            DtgvListadoHabitacion.Columns[1].HeaderText = "TOTAL LIBRE";
+            DtgvListadoHabitacion.Columns[1].Width = (DtgvListadoHabitacion.Width / 4);
+
+            DtgvListadoHabitacion.Columns[2].HeaderText = "TOTAL OCUPADAS";
+            DtgvListadoHabitacion.Columns[2].Width = (DtgvListadoHabitacion.Width / 4);
+
+            DtgvListadoHabitacion.Columns[3].HeaderText = "TOTAL RESERVADAS";
+            DtgvListadoHabitacion.Columns[3].Width = (DtgvListadoHabitacion.Width / 4);
         }
     }
 }

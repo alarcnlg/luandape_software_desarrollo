@@ -30,7 +30,6 @@
         {
             this.BtnCancelar = new System.Windows.Forms.Button();
             this.BtnRegistrarSalida = new System.Windows.Forms.Button();
-            this.BtnGenerarFactura = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -66,17 +65,6 @@
             this.BtnRegistrarSalida.UseVisualStyleBackColor = false;
             this.BtnRegistrarSalida.Click += new System.EventHandler(this.BtnRegistrarSalida_Click);
             // 
-            // BtnGenerarFactura
-            // 
-            this.BtnGenerarFactura.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.BtnGenerarFactura.Location = new System.Drawing.Point(607, 260);
-            this.BtnGenerarFactura.Name = "BtnGenerarFactura";
-            this.BtnGenerarFactura.Size = new System.Drawing.Size(134, 37);
-            this.BtnGenerarFactura.TabIndex = 2;
-            this.BtnGenerarFactura.Text = "GENERAR FACTURA";
-            this.BtnGenerarFactura.UseVisualStyleBackColor = false;
-            this.BtnGenerarFactura.Click += new System.EventHandler(this.BtnGenerarFactura_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -85,7 +73,6 @@
             this.label1.Size = new System.Drawing.Size(117, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Número de habitación :";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -95,7 +82,6 @@
             this.label2.Size = new System.Drawing.Size(88, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Fecha de salida :";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -121,8 +107,7 @@
             this.TxtNumero.Name = "TxtNumero";
             this.TxtNumero.Size = new System.Drawing.Size(50, 20);
             this.TxtNumero.TabIndex = 8;
-            this.TxtNumero.TextChanged += new System.EventHandler(this.TxtNumero_TextChanged);
-            this.TxtNumero.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtNumero_KeyUp);
+            this.TxtNumero.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtNumero_KeyPress);
             // 
             // label6
             // 
@@ -171,7 +156,6 @@
             this.LblTotal.Name = "LblTotal";
             this.LblTotal.Size = new System.Drawing.Size(0, 13);
             this.LblTotal.TabIndex = 14;
-            this.LblTotal.Click += new System.EventHandler(this.LblTotal_Click);
             // 
             // FrmSalidaHuespedes
             // 
@@ -189,11 +173,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.BtnGenerarFactura);
             this.Controls.Add(this.BtnRegistrarSalida);
             this.Controls.Add(this.BtnCancelar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmSalidaHuespedes";
-            this.Text = "Form1";
+            this.Text = "Registro de Salidas";
             this.Load += new System.EventHandler(this.FrmSalidaHuespedes_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -204,7 +188,6 @@
 
         private System.Windows.Forms.Button BtnCancelar;
         private System.Windows.Forms.Button BtnRegistrarSalida;
-        private System.Windows.Forms.Button BtnGenerarFactura;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

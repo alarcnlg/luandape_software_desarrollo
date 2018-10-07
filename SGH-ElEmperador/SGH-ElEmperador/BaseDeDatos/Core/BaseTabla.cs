@@ -50,7 +50,7 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
                 string cmdString = "";
 
                 cmdString = "SELECT " + (campos.Length>0?campos:"*");
-                cmdString += " FROM " + (nombreTabla.Length > 0 ? nombreTabla : NombreTabla);
+                cmdString += " FROM " + (nombreTabla.Length > 0 ? nombreTabla : NombreTabla) + " ";
                 cmdString += join;
                 cmdString += (criterio.Length > 0 ? " WHERE " + criterio : "");
                 cmdString += (group.Length > 0 ? " GROUP BY " + group : "");
@@ -98,7 +98,7 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
                 string cmdString = "";
 
                 cmdString = "SELECT " + (campos.Length > 0 ? campos : "*");
-                cmdString += " FROM " + (nombreTabla.Length > 0 ? nombreTabla : NombreTabla);
+                cmdString += " FROM " + (nombreTabla.Length > 0 ? nombreTabla : NombreTabla) + " ";
                 cmdString += join;
                 cmdString += (criterio.Length > 0 ? " WHERE " + criterio : "");
                 cmdString += (group.Length > 0 ? " GROUB BY " + group : "");
@@ -144,7 +144,7 @@ namespace SGH_ElEmperador.BaseDeDatos.Core
                 string cmdString = "";
 
                 cmdString = "SELECT " + (campos.Length > 0 ? campos : "*");
-                cmdString += " FROM " + (nombreTabla.Length > 0 ? nombreTabla : NombreTabla);
+                cmdString += " FROM " + (nombreTabla.Length > 0 ? nombreTabla : NombreTabla) + " ";
                 cmdString += " " + join;
                 cmdString += (criterio.Length > 0 ? " WHERE " + criterio : "");
                 cmdString += (group.Length > 0 ? " GROUB BY " + group : "");
