@@ -125,9 +125,8 @@
             this.LblFechaDeSalida.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblFechaDeSalida.Location = new System.Drawing.Point(316, 169);
             this.LblFechaDeSalida.Name = "LblFechaDeSalida";
-            this.LblFechaDeSalida.Size = new System.Drawing.Size(123, 20);
+            this.LblFechaDeSalida.Size = new System.Drawing.Size(0, 20);
             this.LblFechaDeSalida.TabIndex = 12;
-            this.LblFechaDeSalida.Text = "FECHASALIDA";
             this.LblFechaDeSalida.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // LblDiasDeAlojamiento
@@ -137,9 +136,8 @@
             this.LblDiasDeAlojamiento.Location = new System.Drawing.Point(316, 225);
             this.LblDiasDeAlojamiento.Name = "LblDiasDeAlojamiento";
             this.LblDiasDeAlojamiento.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.LblDiasDeAlojamiento.Size = new System.Drawing.Size(48, 20);
+            this.LblDiasDeAlojamiento.Size = new System.Drawing.Size(0, 20);
             this.LblDiasDeAlojamiento.TabIndex = 13;
-            this.LblDiasDeAlojamiento.Text = "DIAS";
             this.LblDiasDeAlojamiento.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // LblTotal
@@ -148,9 +146,8 @@
             this.LblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblTotal.Location = new System.Drawing.Point(318, 281);
             this.LblTotal.Name = "LblTotal";
-            this.LblTotal.Size = new System.Drawing.Size(59, 20);
+            this.LblTotal.Size = new System.Drawing.Size(0, 20);
             this.LblTotal.TabIndex = 14;
-            this.LblTotal.Text = "TOTAL";
             this.LblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
