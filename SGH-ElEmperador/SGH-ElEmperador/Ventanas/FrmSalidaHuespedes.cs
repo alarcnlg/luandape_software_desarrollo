@@ -59,7 +59,7 @@ namespace SGH_ElEmperador.Ventanas
             }
         }
 
-        private void BtnCancelar_Click(object sender, EventArgs e)
+        private void BtnSalir_Click(object sender, EventArgs e)
         {
             ModuloGeneral.MDI.CerrarForm(this);
         }
@@ -90,11 +90,15 @@ namespace SGH_ElEmperador.Ventanas
             }
 
             MessageBox.Show("Salida registrada correctamente","GUARDADO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             TxtNumero.Text = "";
             LblDiasDeAlojamiento.Text = "";
             LblFechaDeSalida.Text = "";
             LblTotal.Text = "";
             _id = 0;
+
+            ModuloGeneral.MDI.CargarForm(new FrmFactura(idFactura));
+            Close();
         }
 
     }

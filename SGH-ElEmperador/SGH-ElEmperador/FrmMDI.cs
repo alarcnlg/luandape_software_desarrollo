@@ -27,11 +27,12 @@ namespace SGH_ElEmperador
 
         private void FrmMDI_Load(object sender, EventArgs e)
         {
-
+            LblUsuario.Text = ModuloGeneral.UsuarioActivo;
         }
 
         private void FrmMDI_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (ModuloGeneral.FrmLogin.Visible) return;
             Application.Exit();
         }
 
@@ -41,6 +42,7 @@ namespace SGH_ElEmperador
             {
                 Application.Exit();
             }
+           
         }
 
         private void BtnRegistroHospedaje_Click(object sender, EventArgs e)
@@ -81,10 +83,22 @@ namespace SGH_ElEmperador
         }
 
         public void CerrarForm(Form frm)
-        {
+        {          
             frm.Close();
             LblTitulo.Text = "Hotel \"El Emperador\"";
         }
 
+        private void LblUsuario_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Desea cambiar de usuario?", "CAMBIAR USUARIO", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK) {
+                ModuloGeneral.FrmLogin.Show();
+                Close();
+            }
+        }
+
+        private void PbAcercaDe_Click(object sender, EventArgs e)
+        {
+            ModuloGeneral.MDI.CargarForm(new FrmAcercaDe());
+        }
     }
 }

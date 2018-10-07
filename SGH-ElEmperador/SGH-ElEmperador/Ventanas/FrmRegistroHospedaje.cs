@@ -31,6 +31,8 @@ namespace SGH_ElEmperador.Ventanas
 
         private bool _actualizarPrecios;
         private bool _validarFecha;
+        private bool _validarSelectedIndexTab;
+        private bool _validarCambioFecha;
 
         public FrmRegistroHospedaje()
         {
@@ -40,6 +42,8 @@ namespace SGH_ElEmperador.Ventanas
             _ultimoIndexHuespedTab = 0;
             _actualizarPrecios = true;
             _validarFecha = false;
+            _validarSelectedIndexTab = true;
+            _validarCambioFecha = true;
         }
 
         private void FrmRegistroHospedaje_Load(object sender, EventArgs e)
@@ -152,8 +156,9 @@ namespace SGH_ElEmperador.Ventanas
         }
 
         private void TbCrHuespedes_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {  
             _actualizarPrecios = false;
+            _validarCambioFecha = false;
             GuardarDatosHuesped();
             _ultimoIndexHuespedTab = TbCrHuespedes.SelectedIndex;
 
@@ -171,7 +176,8 @@ namespace SGH_ElEmperador.Ventanas
             TxtApellidos.Text = _datosHuespedes[_ultimoIndexHuespedTab]["APELLIDOS"].ToString();
             TxtDocIdentidad.Text = _datosHuespedes[_ultimoIndexHuespedTab]["DOCIDENTIDAD"].ToString();
             DtpFechaNacimiento.Value = Convert.ToDateTime(_datosHuespedes[_ultimoIndexHuespedTab]["FECHANACIMIENTO"]);
-            _actualizarPrecios = true;
+            _actualizarPrecios = _validarSelectedIndexTab;
+            _validarCambioFecha = true;
         }
 
         private void GuardarDatosHuesped(bool limpiar = true)
@@ -179,7 +185,7 @@ namespace SGH_ElEmperador.Ventanas
             _datosHuespedes[_ultimoIndexHuespedTab]["NOMBRE"] = TxtNombre.Text;
             _datosHuespedes[_ultimoIndexHuespedTab]["APELLIDOS"] = TxtApellidos.Text;
             _datosHuespedes[_ultimoIndexHuespedTab]["DOCIDENTIDAD"] = TxtDocIdentidad.Text;
-            _datosHuespedes[_ultimoIndexHuespedTab]["FECHANACIMIENTO"] = DtpFechaNacimiento.Value;
+            _datosHuespedes[_ultimoIndexHuespedTab]["FECHANACIMIENTO"] = DtpFechaNacimiento.Value.ToString();
 
             if (limpiar)
             {
@@ -208,6 +214,7 @@ namespace SGH_ElEmperador.Ventanas
 
             for (int i = 2; i <= numPersonas; i++) {
                 TbCrHuespedes.TabPages.Add("" + i);
+                TbCrHuespedes.TabPages[i-1].BackColor = Color.White;
             }
         }
 
@@ -226,19 +233,18 @@ namespace SGH_ElEmperador.Ventanas
                 subTotal = _precioHabitacion;
                 for (int i = 1; i < numeroPersonas; i++)
                 {
-                    DateTime nacimiento = (DateTime)_datosHuespedes[i]["FECHANACIMIENTO"];
+                    
+                    DateTime nacimiento = Convert.ToDateTime(_datosHuespedes[i]["FECHANACIMIENTO"]);
                     int edad = 0;
                     try
                     {
-                        edad = nacimiento.AddTicks(-DateTime.Today.Ticks).Year - 1;
+                        edad = DateTime.Today.AddTicks(-nacimiento.Ticks).Year - 1;
                     }
-                    catch (Exception ex) {
-                        edad = 1;
-                    }
+                    catch (Exception ex) { }
+
                     if (_categoriaHabitacion == "D" && edad < 16 && numNinios < 2)
                     {
                         numNinios++;
-                        subTotal += _precioHabitacion * 0.5f;
                     }
                     else
                     {
@@ -263,6 +269,7 @@ namespace SGH_ElEmperador.Ventanas
 
         private void DtpFechaNacimiento_ValueChanged(object sender, EventArgs e)
         {
+            if (!_validarCambioFecha) return;
             if (DtpFechaNacimiento.Value > DateTime.Now)
             {
                 MessageBox.Show("La fecha de nacimiento debe ser menor a la actual", "DATO NO VALIDO", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -270,7 +277,7 @@ namespace SGH_ElEmperador.Ventanas
                 return;
             }
 
-            _datosHuespedes[TbCrHuespedes.SelectedIndex]["FECHANACIMIENTO"] = DtpFechaNacimiento.Value;
+            _datosHuespedes[TbCrHuespedes.SelectedIndex]["FECHANACIMIENTO"] = DtpFechaNacimiento.Value.ToString();
             ActualizarPrecios();
         }
 
@@ -359,8 +366,10 @@ namespace SGH_ElEmperador.Ventanas
             LblIVA.Text = "0.00";
             LblTotal.Text = "0.00";
 
+            _validarSelectedIndexTab = false;
             for (int i = TbCrHuespedes.TabPages.Count - 1; i > 0; i--)
                 TbCrHuespedes.TabPages.RemoveAt(i);
+            _validarSelectedIndexTab = true;
 
             TxtNombre.Text = "";
             TxtApellidos.Text = "";
@@ -406,7 +415,7 @@ namespace SGH_ElEmperador.Ventanas
                                             _datosHuespedes[i]["NOMBRE"].ToString(),
                                             _datosHuespedes[i]["APELLIDOS"].ToString(),
                                             _datosHuespedes[i]["DOCIDENTIDAD"].ToString(),
-                                             (DateTime)_datosHuespedes[i]["FECHANACIMIENTO"])) 
+                                             DateTime.Parse(_datosHuespedes[i]["FECHANACIMIENTO"].ToString()))) 
                     {
                         MessageBox.Show(tbHuespedes.Error, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         error = true;
@@ -431,7 +440,7 @@ namespace SGH_ElEmperador.Ventanas
             Limipiar();
         }
 
-        private void BtnCerrar_Click(object sender, EventArgs e)
+        private void BtnSalir_Click(object sender, EventArgs e)
         {
             ModuloGeneral.MDI.CerrarForm(this);
         }

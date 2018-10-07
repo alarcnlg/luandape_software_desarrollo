@@ -48,6 +48,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icono.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -100,6 +103,12 @@
     <Compile Include="ModuloGeneral.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ventanas\FrmAcercaDe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventanas\FrmAcercaDe.Designer.cs">
+      <DependentUpon>FrmAcercaDe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\FrmConsultaHabitaciones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,12 +126,6 @@
     </Compile>
     <Compile Include="Ventanas\FrmListadoFactura.Designer.cs">
       <DependentUpon>FrmListadoFactura.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Ventanas\FrmPruebas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ventanas\FrmPruebas.Designer.cs">
-      <DependentUpon>FrmPruebas.cs</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\FrmRegistroHospedaje.cs">
       <SubType>Form</SubType>
@@ -150,7 +153,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Ventanas\FrmAcercaDe.resx">
+      <DependentUpon>FrmAcercaDe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\FrmConsultaHabitaciones.resx">
       <DependentUpon>FrmConsultaHabitaciones.cs</DependentUpon>
     </EmbeddedResource>
@@ -159,9 +166,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\FrmListadoFactura.resx">
       <DependentUpon>FrmListadoFactura.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Ventanas\FrmPruebas.resx">
-      <DependentUpon>FrmPruebas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\FrmRegistroHospedaje.resx">
       <DependentUpon>FrmRegistroHospedaje.cs</DependentUpon>
@@ -188,6 +192,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="General\BaseDeDatos.sql" />
+    <Content Include="icono.ico" />
+    <None Include="Resources\acercade.png" />
+    <None Include="Resources\logo.png" />
+    <None Include="Resources\imgusuario.png" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

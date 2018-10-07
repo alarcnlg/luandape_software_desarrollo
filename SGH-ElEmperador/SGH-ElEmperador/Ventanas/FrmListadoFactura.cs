@@ -1,4 +1,11 @@
-﻿using SGH_ElEmperador.BaseDeDatos;
+﻿/**
+* program: SGH-ElEmperador
+* file: FrmListadoFactura.cs
+* company: LUANDAPE Software
+* author: David Cerda
+* description: Formulario de listado de facturas
+*/
+using SGH_ElEmperador.BaseDeDatos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,7 +36,7 @@ namespace SGH_ElEmperador.Ventanas
             FormatearDataGrid();
         }
 
-        private void BtnCancelar_Click(object sender, EventArgs e)
+        private void BtnSalir_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -37,22 +44,22 @@ namespace SGH_ElEmperador.Ventanas
         private void FormatearDataGrid() {
             DtgvListado.Columns[0].Visible = false;
 
-            DtgvListado.Columns[1].HeaderText = "No. factura";
+            DtgvListado.Columns[1].HeaderText = "NO. FACTURA";
             DtgvListado.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
-            DtgvListado.Columns[2].HeaderText = "Habitación";
+            DtgvListado.Columns[2].HeaderText = "HABITACIÓN";
             DtgvListado.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
-            DtgvListado.Columns[3].HeaderText = "Nombre de huesped";
+            DtgvListado.Columns[3].HeaderText = "NOMBRE DE HUESPED";
             DtgvListado.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            DtgvListado.Columns[4].HeaderText = "Fecha Entrada";
+            DtgvListado.Columns[4].HeaderText = "FECHA ENTRADA";
             DtgvListado.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
-            DtgvListado.Columns[5].HeaderText = "Fecha Salida";
+            DtgvListado.Columns[5].HeaderText = "FECHA SALIDA";
             DtgvListado.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
-            DtgvListado.Columns[6].HeaderText = "Total";
+            DtgvListado.Columns[6].HeaderText = "TOTAL";
             DtgvListado.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
         }

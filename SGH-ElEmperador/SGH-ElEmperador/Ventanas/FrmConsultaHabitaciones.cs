@@ -1,4 +1,11 @@
-﻿using SGH_ElEmperador.BaseDeDatos;
+﻿/**
+* program: SGH-ElEmperador
+* file: FrmConsultaHabitaciones.cs
+* company: LUANDAPE Software
+* author: David Cerda
+* description: Formulario de consulta de habitaciones
+*/
+using SGH_ElEmperador.BaseDeDatos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +38,7 @@ namespace SGH_ElEmperador.Ventanas
             FormatearDataGrid();
         }
 
-        private void BtnCancelar_Click(object sender, EventArgs e)
+        private void BtnSalir_Click(object sender, EventArgs e)
         {
             ModuloGeneral.MDI.CerrarForm(this);
         }

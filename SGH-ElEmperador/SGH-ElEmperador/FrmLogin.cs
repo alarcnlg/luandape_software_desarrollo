@@ -26,11 +26,12 @@ namespace SGH_ElEmperador
         {
             InitializeComponent();
             _tbDatos = new UsuariosTB();
+            StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void FrmLogin_Load(object sender, EventArgs e)
-        {
-            StartPosition = FormStartPosition.CenterScreen;
+        {          
+            TxtUsuario.Focus();
         }
 
         private void BtnAceptar_Click(object sender, EventArgs e)
@@ -88,6 +89,10 @@ namespace SGH_ElEmperador
                 Hide();
 
                 ModuloGeneral.MDI = frmMDI;
+                ModuloGeneral.FrmLogin = this;
+
+                TxtUsuario.Clear();
+                TxtPassword.Clear();
             }
         }
 
